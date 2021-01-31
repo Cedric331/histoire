@@ -1,0 +1,35 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block title %}Création Personnage{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5 bg-light p-3">
+<h2 class="text-center">Création Personnage</h2>
+<hr class="my-4">
+   {{ form_start(form) }}
+   <div class="row">
+      <div class="col-6">
+         {{ form_row(form.name) }}
+      </div>
+      <div class="col-6">
+         {{ form_row(form.people) }}
+      </div>
+      <div class="col-6">
+         {{ form_row(form.birth) }}
+      </div>
+      <div class="col-6">
+         {{ form_row(form.death) }}
+      </div>
+      <div class="col-12">
+         {{ form_row(form.history) }}
+      </div>
+      <div class="col-5 mt-3">
+         <input class="btn btn-outline-primary waves-effect" value="Créer" type="submit">
+      </div>
+   </div>
+   {{ form_end(form) }}
+
+</div>
+
+{% endblock %}

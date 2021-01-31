@@ -25,22 +25,22 @@ class Personnage
     private $name;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $birth;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $death;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $nation;
+    private $people;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $history;
 
@@ -52,6 +52,11 @@ class Personnage
     public function __construct()
     {
         $this->citations = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+       return $this->name;
     }
 
     public function getId(): ?int
@@ -71,38 +76,38 @@ class Personnage
         return $this;
     }
 
-    public function getBirth(): ?\DateTimeInterface
+    public function getBirth(): ?int
     {
         return $this->birth;
     }
 
-    public function setBirth(?\DateTimeInterface $birth): self
+    public function setBirth(?int $birth): self
     {
         $this->birth = $birth;
 
         return $this;
     }
 
-    public function getDeath(): ?\DateTimeInterface
+    public function getDeath(): ?int
     {
         return $this->death;
     }
 
-    public function setDeath(?\DateTimeInterface $death): self
+    public function setDeath(?int $death): self
     {
         $this->death = $death;
 
         return $this;
     }
 
-    public function getNation(): ?string
+    public function getPeople(): ?string
     {
-        return $this->nation;
+        return $this->people;
     }
 
-    public function setNation(string $nation): self
+    public function setPeople(?string $people): self
     {
-        $this->nation = $nation;
+        $this->people = $people;
 
         return $this;
     }
@@ -112,7 +117,7 @@ class Personnage
         return $this->history;
     }
 
-    public function setHistory(string $history): self
+    public function setHistory(?string $history): self
     {
         $this->history = $history;
 
