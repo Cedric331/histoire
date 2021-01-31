@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Personnage;
 use App\Form\PersonnageType;
+use App\Repository\PersonnageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,19 @@ class PersonnageController extends AbstractController
       $this->entity = $entity;
    }
 
+   /**
+     * @Route("/personnages", name="personnage_index")
+     */
+   public function index()
+   {
+      $personnages = $this->entity->getRepository(PersonnageRepository::class)
+                     ->findAll();
+
+      return $this->render('personnage/index.html.twig',[
+         'personnages' => $personnages
+      ]);
+   }
+
     /**
      * @Route("/create/personnage", name="personnage_create")
      */
@@ -29,7 +43,8 @@ class PersonnageController extends AbstractController
        $form = $this->createForm(PersonnageType::class, $personnage);
        $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) { 
+         if ($form->isSubmitted() && $form->isValid()) {
+            $personnage->setUpdatedAt(new \DateTime);
             $this->entity->persist($personnage);
             $this->entity->flush();
          }
