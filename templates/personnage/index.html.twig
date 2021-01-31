@@ -1,29 +1,30 @@
 {% extends "layouts/layout.html.twig" %}
 
-<title>Personnage</title>
+{% block title %}Personnages{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-  <section class="dark-grey-text">
-    <h2 class="text-center font-weight-bold mb-4 pb-2">Recent posts</h2>
-    <p class="text-center mx-auto w-responsive mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>
-    <div class="row align-items-center">
-      <div class="col-lg-5 col-xl-4">
-        <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4">
-          <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" alt="Sample image">
+<div class="container my-5">
+  <section class="dark-grey-text bg-light p-2">
+    <h2 class="text-center font-weight-bold mb-4 pb-2">Liste des personnages</h2>
+    <div class="row align-items-center mt-5">
+          {% for personnage in personnages %}
+      <div class="col-lg-5 col-xl-4 my-5">
+        <div class="view overlay">
+          <img class="rounded mx-auto d-block img-thumbnail" src="{{ asset('images/personnages/'~ personnage.image)}}" alt="{{'Image de ' ~ personnage.name}}" style="max-width:500px;max-height:500px;">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
         </div>
       </div>
-      <div class="col-lg-7 col-xl-8">
-        <h4 class="font-weight-bold mb-3"><strong>Title of the news</strong></h4>
-        <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
-          quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus
-          et aut officiis cum soluta nobis est eligendi placeat facere aut rerum.</p>
-        <p>by <a class="font-weight-bold">Jessica Clark</a>, 19/04/2018</p>
-        <a class="btn btn-primary btn-md mx-0 btn-rounded">Read more</a>
-      </div>
+         <div class="col-lg-7 col-xl-8">
+           <h4 class="font-weight-bold mb-3"><strong>{{ personnage.name }}</strong></h4>
+           <em class="dark-grey-text mb-3">Peuple : {{personnage.people}}</em>
+           <p class="dark-grey-text">{{ personnage.history }}</p>
+           <p>Année de naissance : {{ personnage.birth }}</p>
+           <p>Année de décès : {{ personnage.death }}</p>
+         </div>
+         <hr class="col-10 m-auto my-2">
+      {% endfor %}
     </div>
     <hr class="my-5">
   </section>

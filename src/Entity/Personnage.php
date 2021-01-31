@@ -58,8 +58,7 @@ class Personnage
     private $image;
 
    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * @Vich\UploadableField(mapping="personnage_image", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="personnage", fileNameProperty="image")
      * @var File|null
      */
     private $imageFile;

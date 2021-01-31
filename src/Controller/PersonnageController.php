@@ -25,8 +25,11 @@ class PersonnageController extends AbstractController
      */
    public function index()
    {
-      $personnages = $this->entity->getRepository(PersonnageRepository::class)
-                     ->findAll();
+      $personnages = $this->entity->getRepository(Personnage::class)
+                     ->findBy(
+                        [],
+                        ['name' => 'ASC']);
+                     
 
       return $this->render('personnage/index.html.twig',[
          'personnages' => $personnages
