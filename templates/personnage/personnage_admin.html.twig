@@ -18,7 +18,8 @@ Création Personnage
 Modification de {{ personnage.name }}
 {% endif %}
 </h2>
-<hr class="my-4">
+
+<hr class="my-3">
    {{ form_start(form) }}
    <div class="row">
       <div class="col-6 my-2">
@@ -36,6 +37,9 @@ Modification de {{ personnage.name }}
       <div class="col-12 my-2">
          {{ form_row(form.imageFile) }}
       </div>
+      {% if create == false %}
+         <img class="d-flex mr-3" style="max-height:200px;max-width:200px;" src="{{ asset('images/personnages/' ~ personnage.image)}}" alt="Photo de {{personnage.name}}">
+      {% endif %}
       <div class="col-12 my-2">
          {{ form_row(form.history) }}
       </div>
@@ -44,7 +48,6 @@ Modification de {{ personnage.name }}
       </div>
    </div>
    {{ form_end(form) }}
-
 </div>
 
 {% endblock %}

@@ -37,13 +37,29 @@ class PersonnageController extends AbstractController
       ]);
    }
 
-    /**
-     * @Route("/create/personnage", name="personnage_create")
-     * @Route("/edit/personnage/{personnage}", name="personnage_edit")
+      /**
+     * @Route("/admin/personnages", name="personnage_admin")
      */
-    public function store(Request $request, Personnage $personnage = null): Response
+    public function indexAdmin(Request $request, PaginatorInterface $paginator)
     {
-         $create = false;
+       $data = $this->entity->getRepository(Personnage::class)
+                      ->findBy(
+                         [],
+                         ['name' => 'ASC']);
+       $personnages = $paginator->paginate($data, $request->query->getInt('page', 1), 10);
+ 
+       return $this->render('personnage/personnage_index.html.twig',[
+          'personnages' => $personnages
+       ]);
+    }
+
+    /**
+     * @Route("/admin/create/personnage", name="personnage_create")
+     * @Route("/admin/edit/personnage/{personnage}", name="personnage_edit")
+     */
+    public function personnage(Request $request, Personnage $personnage = null): Response
+    {
+      $create = false;
        if(!$personnage){
          $personnage = new Personnage;
          $create = true;

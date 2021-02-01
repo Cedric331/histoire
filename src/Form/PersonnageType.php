@@ -43,6 +43,9 @@ class PersonnageType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                'label' => 'Image :',
+               'delete_label' => 'Supprimer l\'image' ,
+               'image_uri' => false,
+               'download_uri' => false,
                'label_attr' => [
                   'class'=> 'my-1',
                ]
