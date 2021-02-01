@@ -18,9 +18,23 @@ class CitationController extends AbstractController
    {
       $this->entity = $entity;
    }
+
+   /**
+    * @Route("/citation", name="citation_index")
+    *
+    * @return void
+    */
+   public function index()
+   {
+      $citations = $this->entity->getRepository(Citation::class)->findAll();
+
+      return $this->render('citation/index.html.twig',[
+         'citations' => $citations
+      ]);
+   }
    
     /**
-     * @Route("/create/citation", name="citation_create")
+     * @Route("/citation/create", name="citation_create")
      */
     public function store(Request $request): Response
     {
@@ -34,7 +48,7 @@ class CitationController extends AbstractController
          $this->entity->flush();
       }
 
-      return $this->render('citation/index.html.twig',[
+      return $this->render('citation/store.html.twig',[
          'form' => $form->createView()
       ]);
     }

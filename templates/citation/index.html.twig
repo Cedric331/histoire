@@ -1,24 +1,30 @@
 {% extends('layouts/layout.html.twig') %}
 
-{% block title %}Création Citation{% endblock %}
+{% block title %}Citation {% endblock %}
 
 {% block body %}
-   <div class="container mt-5 bg-light p-3">
-<h2 class="text-center">Création Citation</h2>
-<hr class="my-4">
-   {{ form_start(form) }}
-   <div class="row">
-      <div class="col-12 my-2 p-2">
-         {{ form_row(form.citation) }}
-      </div>
-      <div class="col-12 my-2 p-2">
-         {{ form_row(form.personnage) }}
-      </div>
-      <div class="col-5 mt-3">
-         <input class="btn btn-outline-primary waves-effect" value="Créer" type="submit">
-      </div>
-   </div>
-   {{ form_end(form) }}
+<div class="container z-depth-1 my-5 p-5">
 
+  <!-- Section -->
+  <section class="bg-light p-3 mb-5">
+
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">Citations</h3>
+    <hr class="w-header my-4">
+    <p class="lead text-center text-muted pt-2 mb-5">Retrouvez l'ensemble des citations à travers l'histoire</p>
+
+    <div class="row d-flex justify-content-center">
+
+   {% for citation in citations %}
+      <div class="col-md-6 col-xl-4 my-auto">
+        <h5 class="font-weight-normal"><a class="dark-grey-text" href="#">{{ citation.personnage.name}}</a></h5>
+      </div>
+      <div class="col-md-6 my-auto">
+        <p class="text-muted my-5 pb-2">"{{ citation.citation}}"</p>
+      </div>
+      <hr class="w-75 my-2 m-auto">
+   {% endfor %}
+
+    </div>
+  </section>
 </div>
 {% endblock %}
