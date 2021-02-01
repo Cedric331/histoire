@@ -39,10 +39,15 @@ class PersonnageController extends AbstractController
 
     /**
      * @Route("/create/personnage", name="personnage_create")
+     * @Route("/edit/personnage/{personnage}", name="personnage_edit")
      */
-    public function store(Request $request): Response
+    public function store(Request $request, Personnage $personnage = null): Response
     {
-       $personnage = new Personnage;
+         $create = false;
+       if(!$personnage){
+         $personnage = new Personnage;
+         $create = true;
+       }
 
        $form = $this->createForm(PersonnageType::class, $personnage);
        $form->handleRequest($request);
@@ -52,8 +57,10 @@ class PersonnageController extends AbstractController
             $this->entity->persist($personnage);
             $this->entity->flush();
          }
-        return $this->render('personnage/create_personnage.html.twig',[
-           'form' => $form->createView()
+        return $this->render('personnage/personnage_admin.html.twig',[
+           'form' => $form->createView(),
+           'create' => $create,
+           'personnage' => $personnage
         ]);
     }
 }
