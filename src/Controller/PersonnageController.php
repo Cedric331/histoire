@@ -6,6 +6,7 @@ use App\Entity\Personnage;
 use App\Form\PersonnageType;
 use App\Repository\PersonnageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,13 +24,13 @@ class PersonnageController extends AbstractController
    /**
      * @Route("/personnages", name="personnage_index")
      */
-   public function index()
+   public function index(Request $request, PaginatorInterface $paginator)
    {
-      $personnages = $this->entity->getRepository(Personnage::class)
+      $data = $this->entity->getRepository(Personnage::class)
                      ->findBy(
                         [],
                         ['name' => 'ASC']);
-                     
+      $personnages = $paginator->paginate($data, $request->query->getInt('page', 1), 10);
 
       return $this->render('personnage/index.html.twig',[
          'personnages' => $personnages

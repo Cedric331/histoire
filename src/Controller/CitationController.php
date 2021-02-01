@@ -28,7 +28,8 @@ class CitationController extends AbstractController
    public function index(Request $request, PaginatorInterface $paginator)
    {
       $data = $this->entity->getRepository(Citation::class)->findAll();
-      $citations = $paginator->paginate($data, $request->query->getInt('page', 1), 1);
+      $citations = $paginator->paginate($data, $request->query->getInt('page', 1), 10);
+      
       return $this->render('citation/index.html.twig',[
          'citations' => $citations
       ]);
