@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Citation;
 use App\Form\CitationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,10 +25,10 @@ class CitationController extends AbstractController
     *
     * @return void
     */
-   public function index()
+   public function index(Request $request, PaginatorInterface $paginator)
    {
-      $citations = $this->entity->getRepository(Citation::class)->findAll();
-
+      $data = $this->entity->getRepository(Citation::class)->findAll();
+      $citations = $paginator->paginate($data, $request->query->getInt('page', 1), 1);
       return $this->render('citation/index.html.twig',[
          'citations' => $citations
       ]);
